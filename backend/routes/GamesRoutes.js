@@ -3,98 +3,74 @@ import { Game } from "../models/gameModel.js";
 
 const router = express.Router();
 
-// Route to save a new game
+// Create a new game
 router.post("/", async (req, res) => {
   try {
-    console.log(req.body);
-    
-    if (!req.body.title || !req.body.developer || !req.body.releaseYear) {
-      return res.status(400).send({
-        message: "Send all required fields: title, developer, release year",
-      });
+    const { title, developer, releaseYear } = req.body;
+    if (!title || !developer || !releaseYear) {
+      return res.status(400).json({ message: "Send all required fields: title, developer, release year" });
     }
 
-    const newGame = new Game({
-      title: req.body.title,
-      developer: req.body.developer,
-      releaseYear: req.body.releaseYear,
-    });
-
+    const newGame = new Game({ title, developer, releaseYear });
     await newGame.save();
-    res.status(201).json({ message: "Game saved successfully", game: newGame });
+
+    res.status(201).json({ message: "Game saved successfully", data: newGame });
   } catch (err) {
-    console.log(err.message);
-    res.status(500).send({ message: err.message });
+    console.error(err.message);
+    res.status(500).json({ message: err.message });
   }
 });
 
-// Route to get all games from the database
+// Get all games
 router.get("/", async (req, res) => {
   try {
     const games = await Game.find();
-    return res.status(201).json({
-      count: games.length,
-      data: games,
-    });
+    res.status(200).json({ count: games.length, data: games });
   } catch (err) {
-    console.log(err.message);
-    return res.status(500).json({ message: err.message });
+    console.error(err.message);
+    res.status(500).json({ message: err.message });
   }
 });
 
-// Route to get one game from database by id
+// Get one game by id
 router.get("/:id", async (req, res) => {
   try {
-    const id = req.params.id; // const { id } = req.params;
-    const game = await Game.findById(id);
-    if (!game) {
-      return res.status(404).json({ message: "Game not found." });
-    }
-    return res.status(201).json({
-      game,
-    });
+    const game = await Game.findById(req.params.id);
+    if (!game) return res.status(404).json({ message: "Game not found." });
+    res.status(200).json({ data: game });
   } catch (err) {
-    console.log(err.message);
-    return res.status(500).json({ message: err.message });
+    console.error(err.message);
+    res.status(500).json({ message: err.message });
   }
 });
 
-// Route to update a game
+// Update a game
 router.put("/:id", async (req, res) => {
   try {
-    if (!req.body.title || !req.body.developer || !req.body.releaseYear) {
-      return res.status(400).send({
-        message: "Send all required fields: title, developer, release year",
-      });
+    const { title, developer, releaseYear } = req.body;
+    if (!title || !developer || !releaseYear) {
+      return res.status(400).json({ message: "Send all required fields: title, developer, release year" });
     }
 
-    const { id } = req.params;
-    const updatedData = req.body;
-    const result = await Game.findByIdAndUpdate(id, updatedData);
-    if (!result) {
-      return res.status(404).json({ message: "Game not found." });
-    }
-    return res
-      .status(200)
-      .json({ message: "Game successfully updated", game: result });
+    const result = await Game.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!result) return res.status(404).json({ message: "Game not found." });
+
+    res.status(200).json({ message: "Game successfully updated", data: result });
   } catch (err) {
-    console.log(err.message);
-    return res.status(500).json({ message: err.message });
+    console.error(err.message);
+    res.status(500).json({ message: err.message });
   }
 });
 
-// Route to delete a book
+// Delete a game
 router.delete("/:id", async (req, res) => {
   try {
-    const { id } = req.params;
-    const result = await Game.findByIdAndDelete(id);
-    if(!result){
-      return res.status(404).json({message:"Game not found."});
-    }
-    return res.status(200).json({message:"Game deleted successfully",game:result});
+    const result = await Game.findByIdAndDelete(req.params.id);
+    if (!result) return res.status(404).json({ message: "Game not found." });
+    res.status(200).json({ message: "Game deleted successfully", data: result });
   } catch (err) {
-    console.log(err.message);
-    return res.status(500).json({ message: err.message });
+    console.error(err.message);
+    res.status(500).json({ message: err.message });
   }
 });
 
