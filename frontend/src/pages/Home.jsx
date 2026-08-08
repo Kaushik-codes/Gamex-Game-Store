@@ -3,7 +3,6 @@ import axios from "axios";
 import Spinner from "../components/Spinner";
 import { Link } from "react-router-dom";
 import { MdOutlineAddBox } from "react-icons/md";
-// import GamesCard from "../components/Home/GamesCard";
 import GamesTable from "../components/Home/GamesTable";
 import GamesCard from "../components/Home/GamesCard";
 
@@ -26,37 +25,42 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="p-4">
-      <div className="flex justify-between items-center ">
-        <button
-          className="bg-sky-300 hover:bg-sky-600 px-4 py-4 rounded-lg"
-          onClick={() => {
-            setShowType("table");
-          }}
-        >
-          Table
-        </button>
-      </div>
+    <div className="max-w-7xl mx-auto">
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6">
+        <div className="flex gap-3">
+          <button
+            className={`neo-button px-6 py-2.5 font-medium ${showType === "table" ? "text-blue-600 shadow-inner border-2 border-blue-400" : "text-gray-700"}`}
+            onClick={() => setShowType("table")}
+          >
+            Table View
+          </button>
 
-      <div className="flex justify-between items-center ">
-        <button
-          className="bg-sky-300 hover:bg-sky-600 px-4 py-4 rounded-lg"
-          onClick={() => {
-            setShowType("card");
-          }}
-        >
-          Card
-        </button>
-      </div>
-
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl my-8">Games List</h1>
+          <button
+            className={`neo-button px-6 py-2.5 font-medium ${showType === "card" ? "text-blue-600 shadow-inner border-2 border-blue-400" : "text-gray-700"}`}
+            onClick={() => setShowType("card")}
+          >
+            Card View
+          </button>
+        </div>
         <Link to="/games/create">
-          <MdOutlineAddBox className="text-sky-800 text-4xl" />
+          <div className="neo-button-gradient px-6 py-3 flex items-center gap-2 font-medium shadow-lg hover:shadow-xl">
+            <MdOutlineAddBox className="text-2xl" />
+            Add Game
+          </div>
         </Link>
       </div>
 
-      {loading ? <Spinner /> : showType==='table'? (<GamesTable games={games} />) : (<GamesCard games={games}/>)}
+      <h1 className="text-3xl font-bold text-gray-800 mb-8 neo-inset px-6 py-3 inline-block">
+        🎮 Games Collection
+      </h1>
+
+      {loading ? (
+        <Spinner />
+      ) : showType === "table" ? (
+        <GamesTable games={games} />
+      ) : (
+        <GamesCard games={games} />
+      )}
     </div>
   );
 };

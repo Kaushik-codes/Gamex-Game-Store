@@ -7,13 +7,15 @@ import DeleteGame from './pages/DeleteGame';
 
 const App = () => {
   return (
-    <Routes>
-      <Route path='/' element={Home()} />
-      <Route path='/games/create' element={<CreateGame/>} />
-      <Route path='/games/details/:id' element={<ShowGame/>} />
-      <Route path='/games/edit/:id' element={<EditGame/>} />
-      <Route path='/games/delete/:id' element={<DeleteGame/>} />
-    </Routes>
+    <div className="min-h-screen p-6 bg-[#e0e5ec]">
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/games/create' element={<CreateGame />} />
+        <Route path='/games/details/:id' element={<ShowGame />} />
+        <Route path='/games/edit/:id' element={<EditGame />} />
+        <Route path='/games/delete/:id' element={<DeleteGame />} />
+      </Routes>
+    </div>
   )
 }
 

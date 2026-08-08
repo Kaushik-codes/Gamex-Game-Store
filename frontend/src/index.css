@@ -1,1 +1,125 @@
 @import "tailwindcss";
+
+:root {
+  /* Warmer, richer background */
+  --bg-color: #e8ecf1;
+  --bg-card: #edf2f7;
+  /* Stronger shadows for better depth */
+  --shadow-light: #ffffff;
+  --shadow-dark: #b0b8c4;
+  /* Better text contrast */
+  --text-primary: #1a202c;
+  --text-secondary: #2d3748;
+  --text-muted: #4a5568;
+  /* Accent colors that pop */
+  --accent-blue: #4f7df3;
+  --accent-purple: #7c5cfc;
+  --accent-green: #38a169;
+  --accent-yellow: #d69e2e;
+  --accent-red: #e53e3e;
+}
+
+body {
+  background: var(--bg-color);
+  color: var(--text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Neumorphism utilities with better contrast */
+.neo {
+  background: var(--bg-card);
+  box-shadow: 10px 10px 20px var(--shadow-dark),
+             -10px -10px 20px var(--shadow-light);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.neo-inset {
+  background: var(--bg-card);
+  box-shadow: inset 6px 6px 12px var(--shadow-dark),
+              inset -6px -6px 12px var(--shadow-light);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.neo-pressed {
+  background: var(--bg-card);
+  box-shadow: inset 4px 4px 8px var(--shadow-dark),
+              inset -4px -4px 8px var(--shadow-light);
+  border-radius: 16px;
+}
+
+.neo-button {
+  background: var(--bg-card);
+  box-shadow: 6px 6px 12px var(--shadow-dark),
+             -6px -6px 12px var(--shadow-light);
+  border-radius: 16px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-weight: 600;
+}
+
+.neo-button:hover {
+  box-shadow: 4px 4px 8px var(--shadow-dark),
+             -4px -4px 8px var(--shadow-light);
+  transform: translateY(2px);
+}
+
+.neo-button:active {
+  box-shadow: inset 4px 4px 8px var(--shadow-dark),
+              inset -4px -4px 8px var(--shadow-light);
+  transform: translateY(4px);
+}
+
+.neo-card {
+  background: var(--bg-card);
+  box-shadow: 10px 10px 20px var(--shadow-dark),
+             -10px -10px 20px var(--shadow-light);
+  border-radius: 24px;
+  padding: 1.5rem;
+  transition: box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.neo-card:hover {
+  box-shadow: 14px 14px 28px var(--shadow-dark),
+             -14px -14px 28px var(--shadow-light);
+}
+
+/* Special colored buttons that pop */
+.neo-button-blue {
+  background: linear-gradient(145deg, #4f7df3, #3b6be0);
+  color: white;
+  box-shadow: 6px 6px 12px var(--shadow-dark),
+             -6px -6px 12px var(--shadow-light);
+}
+
+.neo-button-blue:hover {
+  box-shadow: 4px 4px 8px var(--shadow-dark),
+             -4px -4px 8px var(--shadow-light);
+}
+
+.neo-button-red {
+  background: linear-gradient(145deg, #e53e3e, #c53030);
+  color: white;
+  box-shadow: 6px 6px 12px var(--shadow-dark),
+             -6px -6px 12px var(--shadow-light);
+}
+
+.neo-button-red:hover {
+  box-shadow: 4px 4px 8px var(--shadow-dark),
+             -4px -4px 8px var(--shadow-light);
+}
+
+.neo-button-gradient {
+  background: linear-gradient(145deg, var(--accent-blue), var(--accent-purple));
+  color: white;
+  box-shadow: 6px 6px 12px var(--shadow-dark),
+             -6px -6px 12px var(--shadow-light);
+}
+
+.neo-button-gradient:hover {
+  box-shadow: 4px 4px 8px var(--shadow-dark),
+             -4px -4px 8px var(--shadow-light);
+}
